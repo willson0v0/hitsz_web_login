@@ -34,7 +34,7 @@ if __name__ == "__main__":
     if args.phantomjs_path is None:
         browser = webdriver.PhantomJS()
     else:
-        browser = webdriver.PhantomJS(executable_path="./dependencies/phantomjs")
+        browser = webdriver.PhantomJS(executable_path=args.phantomjs_path)
     
     browser.get(args.host)
 
