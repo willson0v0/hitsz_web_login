@@ -21,8 +21,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="input your username and password.")
     parser.add_argument('--username', type=str, required=True, help='Your user name to login into web auth system.')
     parser.add_argument('--password', type=str, required=True, help='Your password to login into web auth system.')
-    parser.add_argument('--user_ip', type=str, required=False, help='Your IP address.')
-    parser.add_argument('--phantomjs_path', type=str, required=False, help='Where is phantomjs?')
+    parser.add_argument('--user-ip', type=str, required=False, help='Your IP address.')
+    parser.add_argument('--driver-path', type=str, required=False, help='Where is chromedriver?')
+
     args = parser.parse_args()
     if args.user_ip is None:
         args.user_ip = resolve_ip()
@@ -30,14 +31,13 @@ if __name__ == "__main__":
     args.host = "http://" + target_ip + "/srun_portal_pc?ac_id=1&theme=basic2"
     logging.info("HITSZ Fake Web Login V0.1")
     logging.info("Trying to login with " + args.username + " for " + args.user_ip)
-
-    if args.phantomjs_path is None:
-        browser = webdriver.PhantomJS()
+    
+    if args.chromedriver_path is None:
+        browser = webdriver.Chrome()
     else:
-        browser = webdriver.PhantomJS(executable_path=args.phantomjs_path)
+        browser = webdriver.Chrome(executable_path=args.chromedriver_path)
     
     browser.get(args.host)
-
     browser.execute_script(f'$(username).val("{args.username}")')
     browser.execute_script(f'$(password).val("{args.password}")')
     browser.execute_script('$(login).click()')
